@@ -1,3 +1,8 @@
+sudo apt-get install ruby
+gem install sass
+sass --watch hello.scss:style/hello.css
+
+
 1. variables
 $border : 1px solid #ccc
 
