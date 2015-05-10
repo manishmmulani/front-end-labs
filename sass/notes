@@ -1,0 +1,33 @@
+1. variables
+$border : 1px solid #ccc
+
+2. mixins
+@mixin textTruncate() {
+    overflow : hidden;
+    text-overflow : ellipsis;
+    white-space : nowrap;
+}
+
+.text-truncate {
+    @include textTruncate;
+}
+
+3. extend
+.btn {
+    font-weight : italic
+}
+
+.btn-small {
+    @extend .btn;
+    padding : 10px;
+}
+
+4. placeholders
+%button {
+    padding : 10px;
+    border : 1px solid #ccc;
+}
+
+.btn {
+    @extend %button
+}

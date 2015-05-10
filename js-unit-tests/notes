@@ -1,0 +1,16 @@
+MOCHA
+
+sudo npm install -g mocha
+
+https://github.com/nelsonic/learn-mocha
+
+CHAI
+Mocha is a test framework while Chai is an expectation API provides libraries for assertion  etc.
+Chai supports various assertion styles (expect, assert, should)
+
+sudo npm install -g chai
+
+http://chaijs.com/guide/styles/
+
+Sinon can be used for faking the environment!
+

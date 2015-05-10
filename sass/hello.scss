@@ -1,0 +1,32 @@
+@import "ref";
+
+$border-size : 1px;
+
+$border : $border-size solid #CCC;
+
+.border {
+    border : $border
+}
+
+.highlight {
+    background-color : #FF0;
+}
+
+.message {
+    @extend %MulaniFont;
+    font-weight : bold;
+}
+
+p:hover {
+    background-color : #CCC;
+}
+
+.message-alert {
+    @extend .message;
+    color : #0F0;
+}
+
+.message-info {
+    @extend .message;
+    color : #00F;
+}
