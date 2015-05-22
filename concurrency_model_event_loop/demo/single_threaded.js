@@ -2,7 +2,7 @@ console.log("first");
 
 setTimeout(function timeout() {
     console.log("second");
-}, 0);
+}, 5000);
 
 console.log("third");
 
@@ -12,7 +12,7 @@ console.log("third");
 
 // Asynchronous behaviour is possible through Web APIs provided by browser
 // C++ APIs by Node
-// http://latentflip/loupe
+// http://latentflip.com/loupe
 
 // Web API + Callback Queue + Event Loop
 // Event loop checks call stack, if that's empty, it dequeues message (callback) from Queue

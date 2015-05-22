@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+-->
+
+<html>
+  <head>
+    <title>Presentation</title>
+
+    <meta charset='utf-8'>
+    <script
+      src='http://html5slides.googlecode.com/svn/trunk/slides.js'></script>
+  </head>
+  
+  <style>
+    /* Your individual styles here, or just use inline styles if that’s
+       what you want. */
+    
+    
+  </style>
+
+  <body style='display: none'>
+
+    <section class='slides layout-regular'>
+      
+      <!-- Your slides (<article>s) go here. Delete or comment out the
+           slides below. -->
+
+      <article>
+        <h1>
+          Javascript
+          <br>
+          Concurrency Model & Event Loop
+        </h1>
+        <p>
+          Manish Mulani
+          <br>
+          May 22, 2015
+        </p>
+      </article>
+      
+      <article>
+        <h3>
+          Javascript
+        </h3>
+        <p>
+          <ul class="build">
+          <li>Non blocking</li>
+          <li>Asynchronous</li>
+          <li>Single threaded</li>
+          <li>Concurrent</li>
+          <li>Event-loop</li>
+          <li>Callback</li>
+        </ul>
+        </p>
+
+      </article>
+
+      <article>
+        <h3>
+          Javascript Engine
+        </h3>
+        <p>
+          <h4>
+          Heap<br><br>
+          Call Stack
+        </h4>
+        </p>
+      </article>
+
+      <article>
+        <h3>
+          Call Stack
+        </h3>
+        <br>
+        <br>
+        <img src="http://davidshariff.com/blog/wp-content/uploads/2012/06/stack14.jpg">
+      </article>
+
+      <article class="smaller">
+        <h3>
+          Call Stack
+        </h3>
+<pre>
+&lt;script type='text/javascript'&gt;
+function three() {
+    console.log("three");
+}
+
+function two() {
+    console.log("two");
+    three();
+    console.log("four");
+}
+
+function one() {
+    console.log("one");
+    two();
+    console.log("five");
+}
+
+one();
+
+// call stack tells you where you are in the program
+
+function foo() {
+  foo();
+}
+foo();
+
+// chrome would through stack size exceeded after limit of 16000
+&lt;/script&gt;
+</pre>
+      </article>
+
+<article class="smaller">
+        <h3>
+          Blocking
+        </h3>
+        
+        <p>
+          <ul>
+          <li>console.log isn't slow
+          <li>Network / Image requests are slow
+          <li>Keeping things that are slow out of the call stack - makes it non-blocking
+          </ul>
+        </p>
+<pre>
+$("button").click( function() {
+
+  $.getSync({
+    url : "http://myapp/service/transService/getAllTrades",
+    param : {startDate : "2014-01-01", endDate : "2015-05-20"}
+  });
+
+  showTrades();
+
+  $.getSync({
+    url : "http://myapp/service/posService/getAllPositions",
+    param : {startDate : "2014-01-01", endDate : "2015-05-20"}
+  });
+
+  showPositions();
+
+  $.getSync({
+    url : "http://myapp/service/refService/getStaff",
+    param : {}
+  });
+
+  showStaff();
+}
+</pre>
+      </article>
+
+      <article>
+        <h3>
+          Single Threaded
+        </h3>
+        
+          <ul>
+          <li>JS is single threaded</li>
+          <li>It has a single call stack</li>
+          <li>It can do only one thing at a time</li>
+        </ul>
+        <br><br>
+        <pre>
+&lt;script type='text/javascript'&gt;
+console.log("first");
+
+setTimeout(function timeout() {
+    console.log("second");
+}, 5000);
+
+console.log("third");
+&lt;/script&gt;
+</pre>
+      </article>
+
+      <article class="smaller">
+        <h3>
+          Event Loop
+        </h3>
+        
+
+        <img src="http://www.appsdev.is.ed.ac.uk/blog/wp-content/uploads/2015/03/Event-loop.png">
+      </article>
+
+      <article class='smaller'>
+        <h3>
+          Event Loop
+        </h3>
+        <p>
+          Event loop checks call stack, if that's empty, it dequeues message (callback) from Queue
+        </p>
+        <br><br>
+<pre>
+$.on("button", "click", function() {
+  console.log("button clicked");
+});
+
+setTimeout(function() {
+    console.log("Timeout occurred");
+}, 5000);
+
+console.log("Hi");
+</pre>
+      </article>
+      
+      <article class='smaller'>
+        <h3>
+          Blocking
+        </h3>
+        <ul>
+          <li>Browser rendering engine repaints at 60 FPS
+          <li>Browser is constraint by what is being done by Javascript
+          <li>Browser can't render unless call stack is empty
+        </ul>
+<pre>
+
+function operation(i) {
+  //delay();
+  console.log(i);
+}
+
+
+var array = [1,2,3,4];
+
+//Code 1 - Blocking
+array.forEach(operation);
+
+//Code 2 - Non Blocking
+function asyncForEach(array, callBack) {
+  array.forEach(function(i) {
+    setTimeout(callBack, 0);
+  })
+}
+
+asyncForEach(array, operation);
+</pre>
+      </article>
+      
+      <article>
+        <h3>
+          Thank you!
+        </h3>
+      </article>
+
+    </section>
+
+  </body>
+</html>

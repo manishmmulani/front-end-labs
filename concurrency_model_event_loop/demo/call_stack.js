@@ -1,20 +1,20 @@
-function third() {
-    console.log("third");
+function three() {
+    console.log("three");
 }
 
-function second() {
-    console.log("second");
-    third();
-    console.log("fourth");
+function two() {
+    console.log("two");
+    three();
+    console.log("four");
 }
 
-function first() {
-    console.log("first");
-    second();
-    console.log("fifth");
+function one() {
+    console.log("one");
+    two();
+    console.log("five");
 }
 
-first();
+one();
 
 // call stack tells you where you are in the program
 
